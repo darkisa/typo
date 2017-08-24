@@ -418,14 +418,15 @@ class Article < Content
 
   # merge capability of article
   def merge_articles (article_id)
-    second_article = Article.find(article_id)
-    if second_article
+    second_article = Article.find_by_id(article_id)
+    if !second_article.blank?
       new_body = body + second_article.body
       new_comments = comments + second_article.comments
       update_attribute(:body, new_body)
       update_attribute(:comments, new_comments)
       self.reload
-      other_article.delete
+      second_article.destroy
+    else false
     end
     self
   end
