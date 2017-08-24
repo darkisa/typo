@@ -116,7 +116,7 @@ class Admin::ContentController < Admin::BaseController
   def merge_articles
     @user = current_user
     @article = Article.find(params[:id])
-    @second_article_id = params[:second_article]
+    @second_article_id = params[:merge_with]
     if @user.profile.label != 'admin' || @second_article_id.blank? || @article.id == @second_article_id
       flash[:error] = "Cannot merge articles"  
     elsif @article.merge_articles(params[:second_article])
