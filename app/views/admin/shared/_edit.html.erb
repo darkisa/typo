@@ -5,7 +5,7 @@
 
 <% end %>
 
-<%- if !@user.nil? && @user.profile.label == 'admin' && !@article.new_record? %>
+<%- if current_user.profile.label == 'admin' %>
   <%= form_tag admin_merge_articles_path do %>
     <h4> Merge Articles </h4>
     <%= label_tag 'Article ID' %>
