@@ -113,6 +113,16 @@ class Admin::ContentController < Admin::BaseController
     render :text => nil
   end
 
+  def merge_articles
+    @user = current_user
+    @article = Article.find(params[:id])
+    @second_article_id = params[:second_article]
+    if @user.profile.label != 'admin' || @second_article_id.blank? || @article.id == @second_article_id
+      flash[:error] = "Cannot merge articles"  
+    end
+    redirect_to :action => :edit, id => @article.id
+  end
+
   protected
 
   def get_fresh_or_existing_draft_for_article
